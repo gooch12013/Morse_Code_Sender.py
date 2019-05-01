@@ -1,0 +1,125 @@
+from tkinter import *
+import tkinter.ttk
+import tkinter.messagebox
+import tkinter.font
+from tkinter import filedialog
+import math
+from fractions import gcd
+
+
+import winsound
+import time
+
+
+
+
+
+
+
+main = Tk()
+menu = Menu(main)
+main.config(menu=menu)
+#main.iconbitmap(default='logo2.ico')
+main.title('Morse')
+main.geometry('600x400')
+
+
+S_FONT=("Verdana", 8,)
+M_FONT=("Verdana", 10)
+LL_FONT=("Helvetica", 12 ,'bold')
+L_FONT= tkinter.font.Font(family='Helvetica',size=12, weight='bold')
+helv36 = tkinter.font.Font(family='Helvetica',size=10, weight='bold')
+
+
+testin = StringVar()
+testin.set(1)
+
+
+
+
+def about1():
+    tkinter.messagebox.showinfo('About',
+                          'Hello \nSoftware Version V1.0, Python V3.4  \nIf you have any questions please contact me at \n'
+                          'you@FuckOff.com')
+
+def quitprogram():
+    main.destroy()
+    quit()
+
+
+
+
+
+
+
+
+
+
+
+def p ():
+    t=testin.get()
+
+    print(t)
+
+
+def to_morse_code():
+    t = testin.get()
+    code = {' ': '|', 'a': '. _', 'b': '_ . . .', 'c': '_ . _ .', 'd': '_ . .', 'e': '.', 'f': '. . _ .',
+              'g': '_ _.', 'h': '. . . .', 'i': '. .', 'j': '. _ _ _', 'k': '_ . _', 'l': '. _ . .', 'm': '_ _',
+              'n': '_ .', 'o': '_ _ _', 'p': '. _ _ .', 'q': '_ _ . _', 'r': '. _ .', 's': '. . .', 't': '_',
+              'u': '. . _', 'v': '. . . _', 'w': '. _ _', 'x': '_ . . _', 'y': '_ . _ _', 'z': '_ _ . .',
+              '1': '. _ _ _ _', '2': '. . _ _ _', '3': '. . . _ _', '4': '. . . . _', '5': '. . . . .',
+              '6': '_ . . . .', '7': '_ _ . . .', '8': '_ _ _ . .', '9': '_ _ _ _ .', '0': '_ _ _ _ _'}
+
+    morse_code = '' # empty string to hold code during iteration
+
+    for x in t:
+        morse_code += code[x.lower()]
+        morse_code += "  "
+
+    #return morse_code
+
+    for character in morse_code:
+      if character == "_":
+          winsound.Beep(600,500)
+      if character == ".":
+          winsound.Beep(600,250)
+      else:
+          time.sleep(.1)
+
+
+
+#******** Menu Config **********
+subMenu = Menu(menu,tearoff=0)
+menu.add_cascade(label="File", menu=subMenu,)
+subMenu.add_command(label="Exit", command=quitprogram)
+
+helpMenu = Menu(menu,tearoff=0)
+menu.add_cascade(label="Help", menu=helpMenu)
+helpMenu.add_command(label="About" ,command=about1)
+
+nb = tkinter.ttk.Notebook(main)
+nb.grid(row=1, column=0, columnspan=50, rowspan=49, sticky='NESW')
+
+page1 = tkinter.ttk.Frame(nb)
+nb.add(page1, text='Morse Code Sender')
+#titallable_pg5 = Label (page1, text="Video Wall Calculator",font=L_FONT).grid(row=0, columnspan=5,pady=20)
+#lable1_pg5 = Label (page1, text="Please pick a Panel", font=helv36).grid(row=1, column=1,   )
+#P5_check5 = Radiobutton(page1,text= "Vivid 4",font=helv36, variable= , value=1,command=cal_pg5 ).grid(row=2, column=1, padx=50,sticky="w")
+#P4_check5 = Radiobutton(page1,text= "  F4  ",font=helv36, variable=Pn , value=4,command=cal_pg5 ).grid(row=3, column=1, padx=50,sticky="w")
+#F3_check5 = Radiobutton(page1,text= "  F3  ", font=helv36,variable=Pn, value=2, command=cal_pg5).grid(row=4, column=1,padx=50,sticky="w")
+#C6_check5 = Radiobutton(page1,text= "  C6  ", font=helv36,variable=Pn, value=3, command=cal_pg5).grid(row=5, column=1, padx=50,sticky="w" )
+
+
+
+
+X15 = Label (page1, text="Enter text to convert convert to Morse Code: ",font=helv36).grid(row=2, column=2)
+X1E5 = Entry(page1, textvariable=testin,font=helv36).grid(row=2, column=3)
+#X25 = Label (page1, text="Wall Height in Feet",font=helv36).grid(row=3,column=2 )
+#X2E5 = Entry(page1, textvariable=Heightft,font=helv36).grid(row=3, column=3)
+calbutton_pg45= tkinter.ttk.Button (page1, text='OK', command=to_morse_code).grid(row=2, column=4)
+
+
+
+
+main.mainloop()
